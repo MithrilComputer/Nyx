@@ -1,9 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8 d17.14
+VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyx", "Nyx.csproj", "{CAB4D088-36D6-4586-9D40-D07A5F6B23E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyx.Core", "Nyx.Core\Nyx.Core.csproj", "{C9D47A21-78CD-4AD6-A055-35CC6EC4DBB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyx.Contracts", "Nyx.Contracts\Nyx.Contracts.csproj", "{EA95AE02-49A7-44D4-9009-469FC9167867}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyx.Module.Testing", "Nyx.Module.Testing\Nyx.Module.Testing.csproj", "{EB47EB8E-CDB6-4A32-822F-DD60E972BE90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyx.Transport.WebSockets", "Nyx.Transport.WebSockets\Nyx.Transport.WebSockets.csproj", "{B6C9D06F-1804-42A5-905B-D4344CFF53CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyx.Runtime", "Nyx.Runtime\Nyx.Runtime.csproj", "{1C0A40A4-D3F7-47A3-97FD-5E793651DFAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyx.Host", "Nyx.Host\Nyx.Host.csproj", "{9E96BAB3-E416-47DA-AFBF-0BF077AFC826}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +21,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CAB4D088-36D6-4586-9D40-D07A5F6B23E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAB4D088-36D6-4586-9D40-D07A5F6B23E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAB4D088-36D6-4586-9D40-D07A5F6B23E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAB4D088-36D6-4586-9D40-D07A5F6B23E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9D47A21-78CD-4AD6-A055-35CC6EC4DBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9D47A21-78CD-4AD6-A055-35CC6EC4DBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9D47A21-78CD-4AD6-A055-35CC6EC4DBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9D47A21-78CD-4AD6-A055-35CC6EC4DBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA95AE02-49A7-44D4-9009-469FC9167867}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA95AE02-49A7-44D4-9009-469FC9167867}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA95AE02-49A7-44D4-9009-469FC9167867}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA95AE02-49A7-44D4-9009-469FC9167867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB47EB8E-CDB6-4A32-822F-DD60E972BE90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB47EB8E-CDB6-4A32-822F-DD60E972BE90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB47EB8E-CDB6-4A32-822F-DD60E972BE90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB47EB8E-CDB6-4A32-822F-DD60E972BE90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6C9D06F-1804-42A5-905B-D4344CFF53CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C9D06F-1804-42A5-905B-D4344CFF53CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C9D06F-1804-42A5-905B-D4344CFF53CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C9D06F-1804-42A5-905B-D4344CFF53CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C0A40A4-D3F7-47A3-97FD-5E793651DFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C0A40A4-D3F7-47A3-97FD-5E793651DFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C0A40A4-D3F7-47A3-97FD-5E793651DFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C0A40A4-D3F7-47A3-97FD-5E793651DFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E96BAB3-E416-47DA-AFBF-0BF077AFC826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E96BAB3-E416-47DA-AFBF-0BF077AFC826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E96BAB3-E416-47DA-AFBF-0BF077AFC826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E96BAB3-E416-47DA-AFBF-0BF077AFC826}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
