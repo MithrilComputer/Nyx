@@ -5,9 +5,9 @@ using Nyx.Runtime.Abstractions.MessageRouting;
 
 namespace Nyx.Runtime.MessageRouting
 {
-    public class WebSocketMessageRouter : IWebSocketMessageRouter
+    public sealed class WebSocketMessageRouter : IWebSocketMessageRouter, IDisposable
     {
-        Queue<WsMessage> webSocketMessages = new Queue<WsMessage>();
+        private readonly Queue<WsMessage> webSocketMessages = new Queue<WsMessage>();
 
         private readonly Dictionary<string, IMessageHandler> typeHandlerRouter = new Dictionary<string, IMessageHandler>();
 
@@ -15,11 +15,14 @@ namespace Nyx.Runtime.MessageRouting
 
         private readonly CancellationTokenSource cancelToken = new CancellationTokenSource();
 
-        private readonly INyxLogger logger;
+        private readonly Task processTask;
 
-        public WebSocketMessageRouter(INyxLogger logger)
+        private readonly INyxContextLogger<WebSocketMessageRouter> logger;
+
+        public WebSocketMessageRouter(INyxContextLogger<WebSocketMessageRouter> logger)
         {
-            this.logger = logger;
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            processTask = Task.Run(ProcessLoop);
         }
 
         public void AddMessageToQueue(WsMessage message)
@@ -48,7 +51,7 @@ namespace Nyx.Runtime.MessageRouting
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError("[WebSocketMessageRouter]", ex);
+                    logger.LogError(ex);
                     break;
                 }
 
@@ -58,22 +61,61 @@ namespace Nyx.Runtime.MessageRouting
 
                     lock(webSocketMessages)
                     {
-                        if (webSocketMessages.Count <= 0)
+                        if (webSocketMessages.Count == 0)
                             continue;
 
                         message = webSocketMessages.Dequeue();
                     }
 
-                    if (typeHandlerRouter.TryGetValue(message.Type, out IMessageHandler handler))
+                    if (typeHandlerRouter.TryGetValue(message.Type.ToLowerInvariant(), out IMessageHandler? handler))
                     {
-                        handler.OnMessageReceive(message.Payload);
+                        handler?.OnMessageReceive(message.Payload);
+
+
                     }
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError("[WebSocketMessageRouter]", ex);
+                    logger.LogError(ex);
                 }
             }
+        }
+
+        public void AddMessageRoute(IMessageHandler handler, string type)
+        {
+            string lowerType = type.ToLowerInvariant();
+
+            if (typeHandlerRouter.ContainsKey(lowerType))
+                throw new ArgumentException("Cant add a message handler to router if there is an existing route for the type.", nameof(handler));
+
+            typeHandlerRouter.Add(lowerType, handler);
+        }
+
+        public void Stop()
+        {
+            if (cancelToken.IsCancellationRequested)
+                return;
+
+            cancelToken.Cancel();
+
+            semaphore.Release(); // just to make sure it wakes if its waiting
+        }
+
+        public void Dispose()
+        {
+            Stop();
+
+            try
+            {
+                processTask.GetAwaiter().GetResult(); // Make sure its finished before nuking it
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex);
+            }
+
+            semaphore.Dispose();
+            cancelToken.Dispose();
         }
     }
 }

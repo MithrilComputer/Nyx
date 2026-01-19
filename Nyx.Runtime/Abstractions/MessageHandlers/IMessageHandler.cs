@@ -2,10 +2,8 @@
 
 namespace Nyx.Runtime.Abstractions.MessageHandlers
 {
-    internal interface IMessageHandler
+    public interface IMessageHandler
     {
-
         void OnMessageReceive(JsonElement payload);
-
     }
 }

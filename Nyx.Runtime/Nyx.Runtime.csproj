@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nyx.Contracts\Nyx.Contracts.csproj" />
+    <ProjectReference Include="..\Nyx.Core\Nyx.Core.csproj" />
+  </ItemGroup>
+
 </Project>

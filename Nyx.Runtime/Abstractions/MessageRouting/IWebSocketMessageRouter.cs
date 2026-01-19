@@ -1,6 +1,6 @@
 ﻿namespace Nyx.Runtime.Abstractions.MessageRouting
 {
-    internal interface IWebSocketMessageHandler
+    internal interface IWebSocketMessageRouter
     {
 
 
